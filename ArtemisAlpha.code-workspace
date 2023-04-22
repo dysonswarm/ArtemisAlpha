@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "Artemis.Web",
+			"name": "Artemis Web"
+		},		
+		{
+			"path": "Artemis.Api",
+			"name": "Artemis Api"
+		}
+	],
+	"settings": {}
+}
