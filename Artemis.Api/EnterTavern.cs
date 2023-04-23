@@ -1,35 +1,34 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using Artemis.Api.Core;
+using Microsoft.AspNetCore.Mvc;
+using Artemis.Api.Models;
 
-namespace Artemis.Api
+namespace Artemis.Api;
+public class EnterTavern: ArtemisAzureFunction
 {
-    public static class EnterTavern
+    private readonly TavernService _tavernService;
+    public EnterTavern(TavernService tavernService)
     {
-        [FunctionName("EnterTavern")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+        _tavernService = tavernService;
+    }
 
-            string name = req.Query["name"];
+    [FunctionName("EnterTavern")]
+    public async Task<IActionResult> Run(
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
+    {
+        var model = await _tavernService.OpenTavernDoorAsync();
+        return Ok(model);
+    }
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+    [FunctionName("Action")]
+    public async Task<IActionResult> Action(
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req)
+    {
+        var nextAction = DeserializeBody<NextActionModel>(req.Body);
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-            return new OkObjectResult(responseMessage);
-        }
+        var model = await _tavernService.NextActionAsync(nextAction);
+        return Ok(model);
     }
 }

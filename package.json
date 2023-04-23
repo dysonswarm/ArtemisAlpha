@@ -1,0 +1,23 @@
+{
+  "name": "artemisalpha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dysonswarm/ArtemisAlpha.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dysonswarm/ArtemisAlpha/issues"
+  },
+  "homepage": "https://github.com/dysonswarm/ArtemisAlpha#readme",
+  "dependencies": {
+    "@angular/cli": "^15.2.6",
+    "azure-functions-core-tools": "^4.0.5095"
+  }
+}

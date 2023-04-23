@@ -1,0 +1,31 @@
+<img *ngIf="doorIsOpen && openDoorResult" src="/assets/TavernInside.jpeg" class="img-fluid position-absolute" alt="Open Door">
+<div class="bg-dark overflow-scroll"  style="height: 950px">
+    <button *ngIf="!doorIsOpen" class="btn btn-default btn-lg p-0 m-0" (click)="openDoor()">
+        <img src="/assets/TavernOutside.jpeg" class="img-fluid" alt="Open Door">
+    </button>
+
+    <div *ngIf="doorIsOpen && openDoorResult" class="position-relative">
+        <div #details class="overflow-scroll m-3">
+            <ng-template ngFor let-action [ngForOf]="actions">
+                <div class="card w-25 m-3">
+                    <div class="card-body">
+                        <p class="card-text">{{action.description}}</p>
+                    </div>
+                </div>
+                <div class="card w-25 m-3 bg-dark text-light text">
+                    <div class="card-body">
+                        <p class="card-text">{{action.action}}</p>
+                    </div>
+                </div>
+            </ng-template>
+            <div class="card w-25 m-3">
+                <div class="card-body">
+                    <p class="card-text">{{openDoorResult.tavernModelDescription.description}}</p>
+                    <ng-template ngFor let-option [ngForOf]="openDoorResult.tavernModelDescription.options">
+                        <button class="btn btn-dark" (click)="selectOption(option)">{{option.description}}</button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
