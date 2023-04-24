@@ -12,8 +12,7 @@ public class Startup : FunctionsStartup
 {
     public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)
     {
-        base.ConfigureAppConfiguration(builder);
-        builder.ConfigurationBuilder.AddUserSecrets<Startup>();
+        builder.ConfigurationBuilder.AddEnvironmentVariables().AddUserSecrets<Startup>();
     }
 
     public override void Configure(IFunctionsHostBuilder builder)
