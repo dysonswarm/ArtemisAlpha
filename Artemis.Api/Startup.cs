@@ -19,9 +19,9 @@ public class Startup : FunctionsStartup
     {
         builder.Services.AddOptions<OpenAIConfig>().Configure<IConfiguration>((settings, config) =>
         {
-            config.GetSection("OpenAI").Bind(settings);
+            config.Bind(settings);
         });
-        builder.Services.AddTransient(sp => new OpenAIClient(sp.GetRequiredService<IOptions<OpenAIConfig>>().Value.Key));
+        builder.Services.AddTransient(sp => new OpenAIClient(sp.GetRequiredService<IOptions<OpenAIConfig>>().Value.OpenAIKey));
         builder.Services.AddSingleton<TavernService>();
     }
 }

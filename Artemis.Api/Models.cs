@@ -4,7 +4,7 @@ namespace Artemis.Api.Models;
 
 public class OpenAIConfig
 {
-    public string Key { get; set; }
+    public string OpenAIKey { get; set; }
 }
 public record TavernModel(TavernModelDescription TavernModelDescription, List<ChatMessage> Messages);
 public record TavernModelDescription(string Description, List<TavernModelOption> Options);
